@@ -21,11 +21,15 @@ def pluralize_word(word):
         return word + 's'
 
 CUSTOMIZER_GROUP_NAME = get_env_var("CUSTOMIZER_GROUP_NAME", "group").lower().capitalize()
+def get_customizer_group_name():
+    return CUSTOMIZER_GROUP_NAME
 CUSTOMIZER_GROUP_NAME_PLURAL = pluralize_word(CUSTOMIZER_GROUP_NAME)
 def get_customizer_group_name_plural():
     return CUSTOMIZER_GROUP_NAME_PLURAL
 
 CUSTOMIZER_ORGANIZATION_NAME = get_env_var("CUSTOMIZER_ORGANIZATION_NAME", "organization").lower().capitalize()
+def get_customizer_organization_name():
+    return CUSTOMIZER_ORGANIZATION_NAME
 CUSTOMIZER_ORGANIZATION_NAME_PLURAL = pluralize_word(CUSTOMIZER_ORGANIZATION_NAME)
 def get_customizer_organization_name_plural():
     return CUSTOMIZER_ORGANIZATION_NAME_PLURAL
@@ -68,7 +72,9 @@ class CustomizerPlugin(plugins.SingletonPlugin):
         # extension they belong to, to avoid clashing with functions from
         # other extensions.
         return {
+            'customizer_group_name': get_customizer_group_name,
             'customizer_group_name_plural': get_customizer_group_name_plural,
+            'customizer_organization_name': get_customizer_organization_name,
             'customizer_organization_name_plural': get_customizer_organization_name_plural,
             'customizer_organization_description': get_customizer_organization_description,
             'customizer_group_description': get_customizer_group_description,
