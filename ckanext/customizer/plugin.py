@@ -54,6 +54,7 @@ class CustomizerPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IClick)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IFacets)
 
     # IConfigurer
     def update_config(self, config_):
@@ -81,3 +82,21 @@ class CustomizerPlugin(plugins.SingletonPlugin):
             'customizer_remove_lang_selection': get_customizer_remove_lang_selection,
             'customizer_remove_socials': get_customizer_remove_socials,
         }
+
+    # Rename IFacets
+    # https://github.com/ckan/ckanext-eurovoc/blob/master/ckanext/eurovoc/plugin.py#L82
+    # https://stackoverflow.com/questions/32175329/how-to-add-a-search-filter-facet-option-for-a-custom-field-in-ckan
+    def dataset_facets(self, facets_dict, package_type):
+        facets_dict['organization'] = toolkit._(CUSTOMIZER_ORGANIZATION_NAME_PLURAL)
+        facets_dict['groups'] = toolkit._(CUSTOMIZER_GROUP_NAME_PLURAL)
+        return facets_dict
+
+    def group_facets(self, facets_dict, group_type, package_type):
+        facets_dict['organization'] = toolkit._(CUSTOMIZER_ORGANIZATION_NAME_PLURAL)
+        facets_dict['groups'] = toolkit._(CUSTOMIZER_GROUP_NAME_PLURAL)
+        return facets_dict
+
+    def organization_facets(self, facets_dict, organization_type, package_type):
+        facets_dict['organization'] = toolkit._(CUSTOMIZER_ORGANIZATION_NAME_PLURAL)
+        facets_dict['groups'] = toolkit._(CUSTOMIZER_GROUP_NAME_PLURAL)
+        return facets_dict
